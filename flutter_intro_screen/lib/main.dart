@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-  newScreen() {
+   newScreen() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
