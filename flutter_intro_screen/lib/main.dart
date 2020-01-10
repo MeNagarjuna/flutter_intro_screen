@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_intro_screen/welcome_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -13,7 +15,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Intro Screen Demo'),
-      routes: <String, WidgetBuilder>{ //app routes
+      routes: <String, WidgetBuilder>{
+        //app routes
         '/welcomescreen': (BuildContext context) => new WelcomeScreen(),
       },
     );
@@ -77,15 +80,35 @@ class _MyHomePageState extends State<MyHomePage> {
         image: Image.asset("assets/images/image4.png"),
         title: "Java Language",
         body: "This is forth screen",
-        footer: Text(
-          "Welcome screen forth",
-          style: TextStyle(
-            color: Colors.black,
+        footer: RaisedButton(
+          onPressed: () {
+            newScreen();
+          },
+          child: Text(
+            "Lets ' go !!!",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          color: Colors.blue,
+          shape: new RoundedRectangleBorder(
+            borderRadius: new BorderRadius.circular(30.0),
           ),
         ),
         decoration: pageDecoration,
       ),
     ];
+  }
+
+  newScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WelcomeScreen(
+          title: "Welcome Screen",
+        ),
+      ),
+    );
   }
 
   @override
@@ -97,23 +120,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Scaffold(
         body: IntroductionScreen(
           globalBackgroundColor: Colors.white,
-          dotsDecorator: DotsDecorator(shape: RoundedRectangleBorder(),
-          activeColor: Colors.blue),
+          dotsDecorator: DotsDecorator(
+              shape: RoundedRectangleBorder(), activeColor: Colors.blue),
           pages: getPages(),
           done: Text(
             "Done",
             style: TextStyle(color: Colors.blue),
           ),
-          skip: Text(
-            "Skip",
-            style: TextStyle(color: Colors.blue)
-          ),
+          showSkipButton: true,
+          skip: Text("Skip", style: TextStyle(color: Colors.blue)),
           onDone: () {
             // Here Navigate to your main screen.
-
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen(
-              title: "Welcome Screen",
-            )));
+            newScreen();
           },
         ),
       ),
